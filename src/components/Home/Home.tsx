@@ -2,8 +2,8 @@ import React, { Suspense } from "react";
 import { makeStyles } from '@mui/styles';
 import { Button } from '@mui/material';
 import character_image from '../../assets/images/character-frontpage.jpg';
-
 import { Link } from 'react-router-dom';
+import { AuthCheck } from 'reactfire'
 
 interface Props{
     title: string;
@@ -70,15 +70,24 @@ export const Home = (props: Props) =>{
                         <Link to= "/" className={ `${classes.logo_a} ${classes.logo_navigation}`}>Marvel Character Collection</Link>
                     </h1>
                     <ul className={`${classes.navigation} ${classes.logo_navigation}`}>
+                        <Suspense fallback={'...loading'}>
+                        <AuthCheck fallback={
+                            <li> 
+                            <Link to='/SignIn' className={classes.nav_a}>Sign In</Link>
+                            </li>
+                        }>    
+                        
                         <li>
                             <Link to = "/" className={classes.nav_a}>Home</Link>
                         </li>
                         <li> 
-                            <Link to='/Dashboard' className={classes.nav_a}>About</Link>
+                            <Link to='/Dashboard' className={classes.nav_a}>Dashboard</Link>
                         </li>
                         <li> 
-                            <Link to='/SignIn' className={classes.nav_a}>Learn More</Link>
+                            <Link to='/SignIn' className={classes.nav_a}>Sign In</Link>
                         </li> 
+                        </AuthCheck>
+                        </Suspense>
                     </ul>
                 </div>
             </nav>
